@@ -1,0 +1,77 @@
+/* stylesheet for Josie's Personal Webpage */
+/* index.css is for the homepage */
+
+
+
+#title {
+    position: relative;
+    text-align: center;
+}
+
+h1 {
+    font-family: Geomanist;
+    position: relative; 
+    color: #ff9999;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 32pt;
+    background-color: white;
+    color: violet;
+    text-align: center;
+}
+
+
+h1 {
+    font-family: Geomanist;
+    position: relative; 
+    color: #ff9999;
+}
+
+img.attributes {
+    width: 250px;
+    height: 250px;
+}
+
+h2 {
+    font-family: Geomanist;
+    position: relative; 
+    /*position: absolute; 
+    top: 200px; 
+    left: 0; 
+    width: 100%;
+    font-size: 16pt;*/
+    /*top: 50px;
+    left: 0; 
+    width: 100%; */
+    color: black;
+    font-size: 16pt;
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+p {
+    font-size: 16pt;
+    text-align: center;
+    font-family: Geomanist;
+}
+
+.module {
+  background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
+  background-size: cover;
+  width: 300px;
+  height: 200px;
+  margin: 10px 0 0 10px;
+  position: relative;
+  float: left;
+}
