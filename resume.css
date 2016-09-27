@@ -9,7 +9,8 @@ body {
     color: black;
     padding-left: 90px;
     padding-right: 90px;
-    padding-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 12pt;
 }
 
@@ -29,8 +30,16 @@ h2 {
     font-weight: bold;
 }
 
-.tufts-body {
+.tufts {
     margin:10px;
+}
+
+.title {
+    font-size: 14pt;
+}
+
+.tufts-title {
+    font-size: 15pt;
 }
 
 .date {
