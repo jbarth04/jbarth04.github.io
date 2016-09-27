@@ -3,7 +3,7 @@
 
 
 body {
-    font-family: Geomanist;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     background-color: white;
     position: relative;
     text-align: center;
@@ -43,6 +43,3 @@ a {
   bottom: 0;
   right: 0;
 }
-
-
-
