@@ -1,0 +1,46 @@
+/* stylesheet for Josie's Resume Page */
+/* resume.css */
+
+body {
+    font-family: Book Antiqua;
+    background-color: white;
+    position: relative;
+    text-align: left;
+    color: black;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 30px;
+    font-size: 12pt;
+}
+
+h1 {
+    font-size: 32pt;
+    padding-top: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 11pt;
+    text-align: center;
+}
+
+.section {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.tufts-body {
+    margin:10px;
+}
+
+.date {
+    float: right;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
