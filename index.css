@@ -48,6 +48,12 @@ a {
 @media only screen 
     and (max-device-width: 736px) 
     and (orientation: portrait) {
+
+    h1 {
+        color: #ff9999;
+        font-size: 32pt;
+    }
+
   /* alignment of photos */
     .container {
       height: 300px;
