@@ -43,3 +43,14 @@ a {
   bottom: 0;
   right: 0;
 }
+
+/* MOBILE */
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+  /* alignment of photos */
+    .container {
+      height: 300px;
+      width: 300px;
+      position: relative; /* display image containers in vertical order */
+    }
+
+}
