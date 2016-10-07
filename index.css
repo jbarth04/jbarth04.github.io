@@ -45,7 +45,9 @@ a {
 }
 
 /* MOBILE */
-@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+@media only screen 
+    and (max-device-width: 736px) 
+    and (orientation: portrait) {
   /* alignment of photos */
     .container {
       height: 300px;
