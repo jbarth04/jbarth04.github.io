@@ -25,6 +25,21 @@ h2 {
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+}
+
+.button{ 
+  color: #404040;
+  font-size: 14px;
+  text-align: left;
+  border: #404040;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
 .section {
     font-size: 20pt;
     font-weight: bold;
