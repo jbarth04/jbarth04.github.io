@@ -40,6 +40,6 @@ a {
 }
 
 .button:hover {
-  background-color: #4285f4;
-  color: white;
+  background-color: #f5f5dc;
+  color: #404040;
 }
