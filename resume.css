@@ -30,10 +30,10 @@ a {
 }
 
 .button{ 
-  color: #404040;
+  color: #87CEEB;
   font-size: 14px;
   text-align: left;
-  border: #404040;
+  border: #87CEEB;
   border-style: solid;
   border-width: 2px;
   border-radius: 12px;
@@ -42,8 +42,8 @@ a {
 }
 
 .button:hover {
-  background-color: #ff9999;
-  color: #404040;
+  background-color: #5DADE2;
+  color: white;
 }
 
 .section {
