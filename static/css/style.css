@@ -1,0 +1,157 @@
+/* stylesheet for Josie's Personal Webpage */
+
+/* Base styles */
+body {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    background-color: white;
+    position: relative;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Homepage styles */
+.homepage-body {
+    text-align: center;
+}
+
+.homepage-body h1 {
+    color: #ff9999;
+    font-size: 68pt;
+}
+
+img.attributes {
+    width: 250px;
+    height: 250px;
+}
+
+.container {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  display: inline-block;
+}
+
+.text-caption{ 
+  color: #404040;
+  font-size: 24px;
+  position: absolute; 
+  width: 100%;
+  height: 0%;
+  margin: auto;
+  top: 200px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Resume page styles */
+.resume-body {
+    text-align: left;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 12pt;
+}
+
+.resume-body h1 {
+    font-size: 32pt;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.resume-body h2 {
+    font-size: 11pt;
+    text-align: center;
+}
+
+.section {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.tufts {
+    margin:10px;
+}
+
+.title {
+    font-size: 14pt;
+}
+
+.tufts-title {
+    font-size: 15pt;
+}
+
+.date {
+    float: right;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* Bio page styles */
+.bio-body {
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.bio-body h1 {
+    font-size: 32pt;
+    text-align: center;
+}
+
+.bio-body p {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    background-color: white;
+    position: relative;
+    text-align: left;
+    color: black;
+    font-size: 12pt;
+}
+
+/* Button styles (shared between resume and bio pages) */
+.button{ 
+  color: #87CEEB;
+  font-size: 14px;
+  text-align: left;
+  border: #87CEEB;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 12px;
+  padding: 8px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #5DADE2;
+  color: white;
+}
+
+/* MOBILE */
+@media only screen 
+    and (max-device-width: 736px) 
+    and (orientation: portrait) {
+
+    .homepage-body h1 {
+        color: #ff9999;
+        font-size: 20pt;
+    }
+
+  /* alignment of photos */
+    .container {
+      height: 300px;
+      width: 300px;
+      position: relative; /* display image containers in vertical order */
+    }
+
+}

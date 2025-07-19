@@ -1,21 +1,14 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
+{% block title %}Josie Barth's Biography{% endblock %}
 
-<head>
-    <title>Josie Barth's Biography</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Josie Barth">
-    <meta name="description" content="Josie Barth's Short Biography.">
-    <meta name="keywords" content="josie barth, josephine barth,
-          programming, computer science, compsci, website, bio, biography">
-    <meta name="language" content="English">
-    <link rel="stylesheet" href="bio.css">
-</head>
+{% block description %}Josie Barth's Short Biography.{% endblock %}
 
-<body>
+{% block keywords %}josie barth, josephine barth, programming, computer science, compsci, website, bio, biography{% endblock %}
 
-    <a href="index.html" class="button">HOME</a>
+{% block content %}
+<div class="bio-body">
+    <a href="{{ url_for('index') }}" class="button">HOME</a>
 
     <h1> About Me </h1>
 
@@ -24,7 +17,7 @@
     &nbsp;
     &nbsp;
     &nbsp;
-    Hi, I’m Josie.  I am a student at Tufts University studying Computer Science.  College was my first exposure to programming, and I’m excited to I find myself in such a dynamic field where both opportunity and learning seem boundless.  I’m an active member of Tufts’ Women in Computer Science group and serve as the External Logistics Officer, where I am in charge of communications, event planning, and alumnae networking. 
+    Hi, I'm Josie.  I am a student at Tufts University studying Computer Science.  College was my first exposure to programming, and I'm excited to I find myself in such a dynamic field where both opportunity and learning seem boundless.  I'm an active member of Tufts' Women in Computer Science group and serve as the External Logistics Officer, where I am in charge of communications, event planning, and alumnae networking. 
     </p>
 
     <p>
@@ -42,7 +35,5 @@
     &nbsp;
     In my free time, I like to read, spend time with my family, swim in the ocean, hike in the woods, work at my grandparents' farm, and eat just about anywhere in Portland, Maine. 
     </p>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

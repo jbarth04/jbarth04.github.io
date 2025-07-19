@@ -1,21 +1,14 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
+{% block title %}Josie Barth's Resume{% endblock %}
 
-<head>
-    <title>Josie Barth's Resume</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Josie Barth">
-    <meta name="description" content="Josie Barth's Resume.">
-    <meta name="keywords" content="josie barth, josephine barth,
-          programming, computer science, compsci, website, resume">
-    <meta name="language" content="English">
-    <link rel="stylesheet" href="resume.css">
-</head>
+{% block description %}Josie Barth's Resume.{% endblock %}
 
-<body>
+{% block keywords %}josie barth, josephine barth, programming, computer science, compsci, website, resume{% endblock %}
 
-    <a href="index.html" class="button">HOME</a>
+{% block content %}
+<div class="resume-body">
+    <a href="{{ url_for('index') }}" class="button">HOME</a>
 
     <h1> Josie Barth </h1>
     <h2> josie.barth@gmail.com • jbarth04.github.io </h2>
@@ -33,7 +26,7 @@
             <br>
             <span class="italic"> B.S. in Computer Science </span> <br>
             <span class="bold"> GPA: </span> 
-                3.9, Dean’s List all semesters <br>
+                3.9, Dean's List all semesters <br>
             <span class="bold"> Languages: </span> 
                 C/C++, SQL, JavaScript, HTML/CSS<br>
             <span class="bold"> Tools: </span>
@@ -119,8 +112,5 @@
             <li><span class="bold">WiCS</span> - Women in Computer Science, External Logistics Officer: in charge of communications, event planning, and alumnae networking. 2016/2017
             </li>
         </ul>
-
-
-</body>
-
-</html>
+</div>
+{% endblock %}

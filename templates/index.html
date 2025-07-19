@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Josie Barth's Homepage{% endblock %}
+
+{% block description %}Josie Barth's personal website.{% endblock %}
+
+{% block keywords %}josie barth, josephine barth, programming, computer science, compsci, website{% endblock %}
+
+{% block content %}
+<div class="homepage-body">
+    <h1> Hi, I'm Josie Barth. </h1>
+
+    <div class="container">
+        <a href="{{ url_for('resume') }}">
+            <img src="{{ url_for('static', filename='images/ArizonaSq.jpg') }}" class="attributes" alt="Bird's Nest">
+            <h2 class="text-caption">RESUME</h2>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="https://jbarth04.github.io/">
+            <img src="{{ url_for('static', filename='images/josie_GrandCanyonSq.jpg') }}" class="attributes" alt="Josie's Face" />
+            <h2 class="text-caption">HOMEPAGE</h2>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="{{ url_for('bio') }}">
+            <img src="{{ url_for('static', filename='images/MaineSq.jpg') }}" class="attributes" alt="Maine Coast" />
+            <h2 class="text-caption">BIO</h2>
+        </a>
+    </div>
+</div>
+{% endblock %}
