@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Josie Barth's Homepage</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Josie Barth">
+    <meta name="description" content="Josie Barth's personal website.">
+    <meta name="keywords" content="josie barth, josephine barth,
+          programming, computer science, compsci, website">
+    <meta name="language" content="English">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home">
+    <h1>Hi, I'm Josie Barth.</h1>
+    
+    <!--RESUME-->
+    <div class="container">
+        <a href="{{ url_for('resume') }}">
+            <img src="{{ url_for('static', filename='ArizonaSq.jpg') }}" class="attributes" alt="Bird's Nest">
+            <h2 class="text-caption">RESUME</h2>
+        </a>
+    </div>
+
+    <!--HOMEPAGE-->
+    <div class="container">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='josie_GrandCanyonSq.jpg') }}" class="attributes" alt="Josie's Face" />
+            <h2 class="text-caption">HOMEPAGE</h2>
+        </a>
+    </div>
+
+    <!--BIO-->
+    <div class="container">
+        <a href="{{ url_for('bio') }}">
+            <img src="{{ url_for('static', filename='MaineSq.jpg') }}" class="attributes" alt="Maine Coast" />
+            <h2 class="text-caption">BIO</h2>
+        </a>
+    </div>
+</body>
+</html>
