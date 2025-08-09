@@ -218,7 +218,7 @@
                             }
                         }
                         
-                        // Generate procedural animation base
+                        // Generate procedural animation base - keep idle pulse subtle
                         const proceduralBase = 0.05 + Math.sin(time * 0.01) * 0.03; // Subtle idle pulse
                         
                         // Update all bars with blended animation
@@ -226,17 +226,18 @@
                             let targetHeight;
                             
                             if (animationMode === 'volume' || animationMode === 'audio') {
-                                // Real audio-driven animation with natural variation
+                                // Real audio-driven animation with MUCH higher contrast for visibility
                                 const wavePhase = (i * 0.25) + (time * 0.015);
-                                const waveVariation = Math.sin(wavePhase) * 0.25;
-                                const randomVariation = (Math.random() - 0.5) * 0.08;
+                                const waveVariation = Math.sin(wavePhase) * 0.6; // Increased from 0.25 for more dramatic variation
+                                const randomVariation = (Math.random() - 0.5) * 0.2; // Increased from 0.08 for more liveliness
                                 
-                                // Blend real audio with procedural motion for stability
-                                const audioComponent = effectiveVolume + (waveVariation * effectiveVolume) + (randomVariation * effectiveVolume);
+                                // Amplify volume effect significantly for much more noticeable changes
+                                const amplifiedVolume = effectiveVolume * 2.5; // Multiply by 2.5 for dramatic height differences
+                                const audioComponent = amplifiedVolume + (waveVariation * amplifiedVolume) + (randomVariation * amplifiedVolume);
                                 const proceduralComponent = proceduralBase * 0.3;
                                 targetHeight = audioComponent * 0.8 + proceduralComponent * 0.2;
                             } else {
-                                // Pure procedural animation when no audio detected
+                                // Pure procedural animation when no audio detected - keep subtle
                                 const wavePhase = (i * 0.2) + (time * 0.008);
                                 const waveVariation = Math.sin(wavePhase) * 0.02;
                                 const randomVariation = (Math.random() - 0.5) * 0.01;
@@ -272,7 +273,7 @@
                         ctx.lineCap = 'round';
                         
                         const centerY = canvas.height / 2;
-                        const maxHeight = canvas.height * 0.8;
+                        const maxHeight = canvas.height * 0.9; // Increased from 0.8 to allow taller bars for better contrast
                         
                         // Draw all bars with consistent spacing
                         for (let i = 0; i < numLines; i++) {
