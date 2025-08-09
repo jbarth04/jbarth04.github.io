@@ -471,11 +471,12 @@ p {
 
 .linkedin-button {
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 8px;
     margin-left: 0;
     color: #111;
     text-decoration: none;
     transition: color 0.2s ease;
+    line-height: 1;
 }
 
 .linkedin-button:hover {
