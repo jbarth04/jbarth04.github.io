@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josie Astrid Consulting</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-brand">
+                <img src="./static/JAC_Logo.png" alt="Josie Astrid Consulting" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <a href="./index.html" class="active">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <div class="home-content">
+                <div class="home-body">
+                    <div class="home-text">
+                        <h1>Coming Soon</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <button class="mobile-menu-close" aria-label="Close menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="./index.html" class="active">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./static/app.js"></script>
+</body>
+</html>
