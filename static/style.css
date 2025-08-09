@@ -567,14 +567,14 @@ p {
 }
 
 .voice-btn[data-state="active"] {
-    background: #dc3545;
-    border-color: #dc3545;
+    background: #111;
+    border-color: #111;
     color: white;
 }
 
 .voice-btn[data-state="active"]:hover {
-    background: #c82333;
-    border-color: #c82333;
+    background: #333;
+    border-color: #333;
 }
 
 .voice-btn[data-state="error"] {
