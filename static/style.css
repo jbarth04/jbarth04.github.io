@@ -303,49 +303,6 @@ p {
         gap: 3rem;
     }
     
-    .about-image img {
-        max-width: 220px;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-body {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding-top: 1rem;
-    }
-    
-    .about-text {
-        padding-top: 0;
-    }
-    
-    .about-text h1 {
-        font-size: 1.75rem;
-        margin-bottom: 1.25rem;
-    }
-    
-    .about-text p {
-        font-size: 1.05rem;
-        line-height: 1.75;
-    }
-    
-    .about-image {
-        order: 1;
-        align-items: center;
-    }
-    
-    .about-text {
-        order: 2;
-    }
-    
-    .about-image img {
-        max-width: 200px;
-        margin-top: 0;
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
     .about-content {
         gap: 2.5rem;
     }
@@ -356,14 +313,22 @@ p {
 }
 
 @media (max-width: 768px) {
+    .about-body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding-top: 0;
+    }
+    
     .about-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        margin: 1rem 0 3rem;
+        gap: 1rem;
+        margin: 0;
     }
     
     .about-text {
+        padding-top: 0;
         padding-right: 0;
+        order: 2;
     }
     
     .about-text h1 {
@@ -381,16 +346,15 @@ p {
     }
     
     .about-image {
+        position: static;
         order: 1;
-        padding: 1rem 0 0.5rem;
-    }
-    
-    .about-text {
-        order: 2;
+        align-items: center;
+        padding: 0.5rem 0 0.25rem;
     }
     
     .about-image img {
         max-width: 220px;
+        margin-top: 0;
     }
 }
 
@@ -644,16 +608,16 @@ p {
 /* Responsive Styles */
 @media (max-width: 768px) {
     .nav {
-        padding: 16px 0;
+        padding: 8px 0;
     }
     
     .nav-container {
-        min-height: 160px;
+        min-height: 80px;
         padding: 0 20px;
     }
     
     .nav-logo {
-        height: 120px;
+        height: 60px;
     }
     
     .nav-links {
@@ -666,25 +630,13 @@ p {
     
     /* Adjust main content padding for mobile */
     .main {
-        padding-top: 30px;
+        padding-top: 10px;
     }
 }
 
 @media (max-width: 768px) {
-    .nav-container {
-        padding: 20px;
-    }
-    
-    .nav-logo {
-        height: 60px;
-    }
-    
-    .nav-links {
-        gap: 20px;
-    }
-    
     .container {
-        padding: 0 24px;
+        padding: 0 20px;
     }
     
     .hero h1 {
