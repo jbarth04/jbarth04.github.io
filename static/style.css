@@ -503,6 +503,9 @@ p {
     max-width: 650px;
     margin: 0 auto;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .home-text h1 {
@@ -515,6 +518,8 @@ p {
     color: #666;
     margin-bottom: 1rem;
     font-weight: 400;
+    max-width: 100%;
+    text-align: center;
 }
 
 .helper-text {
