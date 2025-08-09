@@ -1,2 +1,1 @@
-My website
-Coded with Windsurf + Devin
+My website, coded with Windsurf + Devin
