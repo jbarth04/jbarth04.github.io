@@ -490,6 +490,10 @@ p {
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
+.voice-btn:focus {
+    outline: none;
+}
+
 
 .voice-btn-text {
     font-size: 0.95rem;
@@ -567,14 +571,14 @@ p {
 }
 
 .voice-btn[data-state="active"] {
-    background: #dc3545;
-    border-color: #dc3545;
+    background: #111;
+    border-color: #111;
     color: white;
 }
 
 .voice-btn[data-state="active"]:hover {
-    background: #c82333;
-    border-color: #c82333;
+    background: #333;
+    border-color: #333;
 }
 
 .voice-btn[data-state="error"] {
@@ -586,6 +590,36 @@ p {
 .voice-btn[data-state="error"]:hover {
     background: #c82333;
     border-color: #c82333;
+}
+
+/* Waveform Visualization */
+.waveform-canvas {
+    margin: 1rem auto 0;
+    display: block;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.call-status {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.voice-btn[data-state="active"] .voice-btn-text::before {
+    content: "HANG UP";
+}
+
+.voice-btn[data-state="active"] .voice-btn-text {
+    font-size: 0;
+}
+
+.voice-btn[data-state="active"] .voice-btn-text::before {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 
 /* Contact Form */
@@ -788,7 +822,8 @@ p {
     }
     
     .voice-btn {
-        width: 100%;
+        width: auto;
+        max-width: 280px;
         padding: 1.5rem 2rem;
         font-size: 1.1rem;
     }
