@@ -153,9 +153,72 @@
                     const numLines = 25;
                     const lineWidth = 3;
                     const spacing = canvas.width / numLines;
+                    let audioData = new Array(numLines).fill(0.1); // Initialize with idle state
+                    let smoothedData = new Array(numLines).fill(0.1);
+                    
+                    // Try to get audio context for real-time analysis
+                    let audioContext = null;
+                    let analyser = null;
+                    let dataArray = null;
+                    
+                    // Initialize audio analysis if possible
+                    function initAudioAnalysis() {
+                        try {
+                            if (vapiInstance && vapiInstance.getAudioContext) {
+                                audioContext = vapiInstance.getAudioContext();
+                            } else if (window.AudioContext || window.webkitAudioContext) {
+                                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                            }
+                            
+                            if (audioContext) {
+                                analyser = audioContext.createAnalyser();
+                                analyser.fftSize = 64; // Small size for performance
+                                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                                
+                                // Try to connect to VAPI audio stream
+                                if (vapiInstance && vapiInstance.getMediaStream) {
+                                    const stream = vapiInstance.getMediaStream();
+                                    if (stream) {
+                                        const source = audioContext.createMediaStreamSource(stream);
+                                        source.connect(analyser);
+                                    }
+                                }
+                            }
+                        } catch (error) {
+                            console.log('Audio analysis not available, using simulated data');
+                        }
+                    }
+                    
+                    function updateAudioData() {
+                        if (analyser && dataArray) {
+                            analyser.getByteFrequencyData(dataArray);
+                            
+                            // Map frequency data to our bars
+                            for (let i = 0; i < numLines; i++) {
+                                const dataIndex = Math.floor((i / numLines) * dataArray.length);
+                                const rawValue = dataArray[dataIndex] / 255;
+                                audioData[i] = Math.max(rawValue, 0.05); // Minimum idle level
+                            }
+                        } else {
+                            // Fallback: gentle wave motion with small idle movement
+                            for (let i = 0; i < numLines; i++) {
+                                const wavePhase = (i * 0.2) + (time * 0.01);
+                                const baseHeight = Math.sin(wavePhase) * 0.15 + 0.15; // Smaller idle movement
+                                const randomVariation = (Math.random() - 0.5) * 0.05; // Less randomness
+                                audioData[i] = Math.max(baseHeight + randomVariation, 0.05);
+                            }
+                        }
+                        
+                        // Smooth the data for natural movement
+                        for (let i = 0; i < numLines; i++) {
+                            smoothedData[i] = smoothedData[i] * 0.7 + audioData[i] * 0.3;
+                        }
+                    }
                     
                     function animate() {
                         if (!isCallActive) return;
+                        
+                        updateAudioData();
                         
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.strokeStyle = '#111';
@@ -167,18 +230,10 @@
                         
                         for (let i = 0; i < numLines; i++) {
                             const x = (i + 0.5) * spacing;
+                            const height = smoothedData[i] * maxHeight;
                             
-                            // Create gentle wave motion with some randomness
-                            const wavePhase = (i * 0.3) + (time * 0.02);
-                            const baseHeight = Math.sin(wavePhase) * 0.6 + 0.4;
-                            const randomVariation = (Math.random() - 0.5) * 0.3;
-                            const height = (baseHeight + randomVariation) * maxHeight;
-                            
-                            // Ensure minimum height for visual consistency
-                            const finalHeight = Math.max(height, maxHeight * 0.1);
-                            
-                            const startY = centerY - finalHeight / 2;
-                            const endY = centerY + finalHeight / 2;
+                            const startY = centerY - height / 2;
+                            const endY = centerY + height / 2;
                             
                             ctx.beginPath();
                             ctx.moveTo(x, startY);
@@ -187,12 +242,11 @@
                         }
                         
                         time++;
-                        
-                        setTimeout(() => {
-                            waveformAnimation = requestAnimationFrame(animate);
-                        }, 100);
+                        waveformAnimation = requestAnimationFrame(animate);
                     }
                     
+                    // Initialize audio analysis when starting
+                    initAudioAnalysis();
                     animate();
                 }
                 
