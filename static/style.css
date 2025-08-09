@@ -368,13 +368,13 @@ p {
 .home-body {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 60vh;
+    min-height: 50vh;
 }
 
 .home-text {
@@ -500,8 +500,9 @@ p {
 /* Home content centering and typography */
 .home-text {
     text-align: center;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .home-text h1 {
