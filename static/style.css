@@ -469,6 +469,26 @@ p {
     border-color: #666;
 }
 
+.linkedin-button {
+    display: inline-block;
+    margin-top: -16px;
+    margin-left: 0;
+    color: #111;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.linkedin-button:hover {
+    color: #666;
+}
+
+.linkedin-button svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
 /* Contact Form */
 .contact-form-container {
     margin-top: 2rem;
