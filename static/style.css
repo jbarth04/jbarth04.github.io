@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 40px; /* Further reduced padding for better spacing */
-    min-height: calc(100vh - 40px);
+    padding-top: 20px; /* Reduced padding for tighter spacing between navbar and headline */
+    min-height: calc(100vh - 20px);
     padding-bottom: 80px;
 }
 
@@ -366,13 +366,15 @@ p {
 }
 
 .home-body {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 1rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: start;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 45vh;
 }
 
 .home-text {
@@ -451,6 +453,139 @@ p {
     width: 20px;
     height: 20px;
     display: block;
+}
+
+/* Voice Button - Vapi Style */
+.voice-btn {
+    background: #111;
+    color: #fff;
+    border: 3px solid #111;
+    padding: 1.5rem 4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: inherit;
+    text-transform: uppercase;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.voice-btn:hover {
+    background: #333;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.voice-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+
+.voice-btn-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+/* Home content centering and typography */
+.home-text {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-text h1 {
+    margin-bottom: 1.5rem;
+}
+
+.main-paragraph {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    max-width: 100%;
+    text-align: center;
+}
+
+.subhead {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 0;
+    font-weight: 400;
+    max-width: 100%;
+    text-align: center;
+}
+
+.helper-text {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.voice-btn:disabled {
+    background: #ccc;
+    color: #666;
+    border-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.voice-btn[data-state="connecting"] {
+    background: #666;
+    border-color: #666;
+    color: white;
+}
+
+.voice-btn[data-state="connecting"] .voice-btn-text::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+.voice-btn[data-state="active"] {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.voice-btn[data-state="active"]:hover {
+    background: #c82333;
+    border-color: #c82333;
+}
+
+.voice-btn[data-state="error"] {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.voice-btn[data-state="error"]:hover {
+    background: #c82333;
+    border-color: #c82333;
 }
 
 /* Contact Form */
@@ -630,7 +765,12 @@ p {
     
     /* Adjust main content padding for mobile */
     .main {
-        padding-top: 10px;
+        padding-top: 5px;
+    }
+    
+    .home-body {
+        padding: 0.25rem 1rem;
+        min-height: 40vh;
     }
 }
 
@@ -646,4 +786,17 @@ p {
     .hero p {
         font-size: 18px;
     }
+    
+    .voice-btn {
+        width: 100%;
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .home-body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: center;
+    }
+}
 }

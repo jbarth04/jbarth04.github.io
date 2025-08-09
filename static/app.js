@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
 
+
     function toggleMobileMenu() {
         if (mobileMenuOverlay) {
             mobileMenuOverlay.classList.toggle('active');

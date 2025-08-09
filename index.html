@@ -30,7 +30,11 @@
             <div class="home-content">
                 <div class="home-body">
                     <div class="home-text">
-                        <h1>Coming Soon</h1>
+                        <h1>Welcome to Josie Astrid Consulting</h1>
+                        <p class="main-paragraph">Meet my AI twin. It's trained on my background, my work, and how I think. It even speaks in my voice. Ask it about my experience, how I work with clients, or what I can help you solve.</p>
+                        <button id="vapi-voice-btn" class="voice-btn">
+                            <span class="voice-btn-text">TALK TO MY AI TWIN</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -51,6 +55,58 @@
         </ul>
     </div>
 
+    <script>
+        var vapiInstance = null;
+        const assistant = "eea2ce9f-3124-462f-9a5c-3b6a0a16672b";
+        const apiKey = "0cf8ba01-833e-42bc-8bb8-83cf4d3035b8";
+
+        (function (d, t) {
+            var g = document.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+            g.defer = true;
+            g.async = true;
+            s.parentNode.insertBefore(g, s);
+
+            g.onload = function () {
+                // Initialize Vapi SDK without creating any widget
+                if (window.vapiSDK && window.vapiSDK.Vapi) {
+                    vapiInstance = new window.vapiSDK.Vapi({
+                        apiKey: apiKey
+                    });
+                } else {
+                    // Fallback to run method but with completely hidden config
+                    vapiInstance = window.vapiSDK.run({
+                        apiKey: apiKey,
+                        assistant: assistant,
+                        config: {
+                            position: 'bottom-right',
+                            offset: '-99999px',
+                            width: '0px',
+                            height: '0px',
+                            idle: { color: 'rgba(0,0,0,0)', display: 'none' },
+                            loading: { color: 'rgba(0,0,0,0)', display: 'none' },
+                            active: { color: 'rgba(0,0,0,0)', display: 'none' }
+                        }
+                    });
+                }
+                
+                // Add click handler to our custom button
+                const customBtn = document.getElementById('vapi-voice-btn');
+                if (customBtn) {
+                    customBtn.addEventListener('click', function() {
+                        if (vapiInstance) {
+                            if (vapiInstance.start) {
+                                vapiInstance.start(assistant);
+                            } else if (vapiInstance.call) {
+                                vapiInstance.call({ assistant: assistant });
+                            }
+                        }
+                    });
+                }
+            };
+        })(document, "script");
+    </script>
     <script src="./config.js"></script>
     <script src="./static/app.js"></script>
 </body>
