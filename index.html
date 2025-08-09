@@ -150,14 +150,11 @@
                     const canvas = waveformCanvas;
                     const ctx = canvas.getContext('2d');
                     let time = 0;
-                    const numLines = 30; // Increased to 24-32 range as requested
+                    const numLines = 30; // 30 bars for visual appeal
                     const lineWidth = 3;
                     const spacing = canvas.width / numLines;
                     
-                    // Multi-layered animation system
-                    let currentVolume = 0.1; // Start with idle level
-                    let hasVolumeData = false;
-                    let lastVolumeTime = Date.now();
+                    // Continuous speaker wave animation system
                     let audioData = new Array(numLines).fill(0.1);
                     let smoothedData = new Array(numLines).fill(0.1);
                     let isTabVisible = true;
@@ -167,103 +164,41 @@
                         isTabVisible = !document.hidden;
                     });
                     
-                    // Listen to VAPI volume-level events for real-time audio data
-                    if (vapiInstance) {
-                        vapiInstance.on('volume-level', (volume) => {
-                            // Volume comes as a number, normalize and use for animation
-                            currentVolume = Math.max(volume / 100, 0.05); // Ensure minimum idle level
-                            hasVolumeData = true;
-                            lastVolumeTime = Date.now();
-                        });
-                    }
-                    
-                    // Audio element detection for fallback
-                    function detectAudioPlayback() {
-                        const audioElements = document.querySelectorAll('audio, video');
-                        let isPlaying = false;
-                        let audioLevel = 0.1;
+                    function updateWaveData() {
+                        // Create continuous rolling wave effect with multiple wave layers
+                        // This creates an equalizer-like animation that's always alive and energetic
                         
-                        audioElements.forEach(element => {
-                            if (!element.paused && !element.ended && element.readyState > 2) {
-                                isPlaying = true;
-                                // Estimate audio level based on element state
-                                audioLevel = Math.max(audioLevel, 0.3);
-                            }
-                        });
-                        
-                        return { isPlaying, audioLevel };
-                    }
-                    
-                    function updateAudioData() {
-                        const now = Date.now();
-                        const timeSinceLastVolume = now - lastVolumeTime;
-                        
-                        // Determine animation source priority
-                        let effectiveVolume = currentVolume;
-                        let animationMode = 'volume'; // 'volume', 'audio', 'procedural'
-                        
-                        // Check if volume data is stale (no events for 500ms)
-                        if (timeSinceLastVolume > 500) {
-                            hasVolumeData = false;
-                        }
-                        
-                        // Fallback to audio element detection if no volume data
-                        if (!hasVolumeData) {
-                            const audioState = detectAudioPlayback();
-                            if (audioState.isPlaying) {
-                                effectiveVolume = audioState.audioLevel;
-                                animationMode = 'audio';
-                            } else {
-                                animationMode = 'procedural';
-                            }
-                        }
-                        
-                        // Generate subtle idle pulse for when no speech detected
-                        const idlePulse = 0.04 + Math.sin(time * 0.008) * 0.02; // Very subtle idle pulse
-                        
-                        // Update all bars with speech-pattern-based animation
                         for (let i = 0; i < numLines; i++) {
-                            let targetHeight;
+                            // Primary wave - creates the main rolling motion across bars
+                            const primaryWave = Math.sin((i * 0.3) + (time * 0.02)) * 0.4;
                             
-                            if (animationMode === 'volume' || animationMode === 'audio') {
-                                // Speech-pattern animation that reacts to natural rhythm
-                                // Create organic, irregular patterns that mimic speech characteristics
-                                
-                                // Base speech energy from volume with much higher amplification for dramatic peaks
-                                const speechEnergy = effectiveVolume * 4.5; // Significantly increased from 2.8 for higher peaks
-                                
-                                // Add speech-like irregular patterns with increased variation for more dynamic range
-                                // Use multiple random frequencies to create organic variation with higher peaks
-                                const speechPattern1 = (Math.random() - 0.5) * speechEnergy * 0.6; // Increased from 0.4 for more dramatic variation
-                                const speechPattern2 = (Math.random() - 0.5) * speechEnergy * 0.4; // Increased from 0.25 for secondary peaks
-                                const speechPattern3 = (Math.random() - 0.5) * speechEnergy * 0.25; // Increased from 0.15 for micro-variations
-                                
-                                // Add slight bar-to-bar correlation for more natural flow
-                                const neighborInfluence = i > 0 ? (audioData[i-1] - idlePulse) * 0.1 : 0;
-                                
-                                // Combine all speech elements for organic, human-like animation
-                                const speechComponent = speechEnergy + speechPattern1 + speechPattern2 + speechPattern3 + neighborInfluence;
-                                
-                                // Blend with minimal idle component to prevent complete silence
-                                targetHeight = speechComponent * 0.9 + idlePulse * 0.1;
-                                
-                                // Add slight momentum/decay for more natural speech rhythm
-                                if (i > 0) {
-                                    const momentum = (audioData[i-1] - idlePulse) * 0.05;
-                                    targetHeight += momentum;
-                                }
-                            } else {
-                                // Pure idle state - very subtle, uniform pulse
-                                const idleVariation = (Math.random() - 0.5) * 0.005; // Minimal random variation
-                                targetHeight = idlePulse + idleVariation;
-                            }
+                            // Secondary wave - adds complexity and prevents uniformity
+                            const secondaryWave = Math.sin((i * 0.15) + (time * 0.035)) * 0.25;
                             
-                            audioData[i] = Math.max(targetHeight, 0.02); // Minimal floor for visibility
+                            // Tertiary wave - creates micro-variations for organic feel
+                            const tertiaryWave = Math.sin((i * 0.8) + (time * 0.015)) * 0.15;
+                            
+                            // Base energy level - keeps bars always visible and energetic
+                            const baseEnergy = 0.3 + Math.sin(time * 0.01) * 0.1;
+                            
+                            // Combine waves to create rolling peaks and valleys
+                            const waveHeight = baseEnergy + primaryWave + secondaryWave + tertiaryWave;
+                            
+                            // Add slight randomness for organic, non-mechanical feel
+                            const organicVariation = (Math.random() - 0.5) * 0.08;
+                            
+                            // Create neighbor influence for smoother flow between bars
+                            const neighborInfluence = i > 0 ? (audioData[i-1] - baseEnergy) * 0.15 : 0;
+                            
+                            // Final height calculation with all components
+                            const targetHeight = Math.max(waveHeight + organicVariation + neighborInfluence, 0.05);
+                            
+                            audioData[i] = targetHeight;
                         }
                         
-                        // Smooth the data for fluid movement with gentle easing
+                        // Smooth the data for fluid, continuous movement
                         for (let i = 0; i < numLines; i++) {
-                            const smoothingFactor = isTabVisible ? 0.75 : 0.9; // Slower when tab hidden
+                            const smoothingFactor = isTabVisible ? 0.8 : 0.9; // Slightly slower when tab hidden
                             smoothedData[i] = smoothedData[i] * smoothingFactor + audioData[i] * (1 - smoothingFactor);
                         }
                     }
@@ -279,7 +214,7 @@
                             return;
                         }
                         
-                        updateAudioData();
+                        updateWaveData();
                         
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.strokeStyle = '#111';
@@ -287,7 +222,7 @@
                         ctx.lineCap = 'round';
                         
                         const centerY = canvas.height / 2;
-                        const maxHeight = canvas.height * 0.95; // Increased from 0.9 to allow even taller bars for dramatic peaks
+                        const maxHeight = canvas.height * 0.9; // Optimal height for continuous wave animation
                         
                         // Draw all bars with consistent spacing
                         for (let i = 0; i < numLines; i++) {
