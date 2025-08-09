@@ -14,7 +14,7 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
-    padding-top: 75px;
+    padding-top: 0;
 }
 
 /* Navigation */
@@ -38,7 +38,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: 200px;
 }
 
 /* Logo */
@@ -48,7 +48,7 @@ body {
 }
 
 .nav-logo {
-    height: 184px;
+    height: 180px;
     width: auto;
     display: block;
     transition: transform 0.2s ease;
@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 200px; /* Match the height of the navigation */
-    min-height: calc(100vh - 200px);
+    padding-top: 40px; /* Further reduced padding for better spacing */
+    min-height: calc(100vh - 40px);
     padding-bottom: 80px;
 }
 
@@ -407,7 +407,7 @@ p {
     padding: 0 1rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 1rem;
+    gap: 2rem;
     align-items: start;
 }
 
@@ -436,7 +436,7 @@ p {
     padding: 0 1rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 1rem;
+    gap: 2rem;
     align-items: start;
 }
 
@@ -628,12 +628,12 @@ p {
     }
     
     .nav-container {
-        min-height: 100px;
+        min-height: 160px;
         padding: 0 20px;
     }
     
     .nav-logo {
-        height: 68px;
+        height: 120px;
     }
     
     .nav-links {
@@ -646,7 +646,7 @@ p {
     
     /* Adjust main content padding for mobile */
     .main {
-        padding-top: 120px;
+        padding-top: 30px;
     }
 }
 
