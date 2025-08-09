@@ -470,28 +470,22 @@ p {
 }
 
 .linkedin-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
+    display: inline-block;
     margin-top: 12px;
     margin-left: 0;
     color: #111;
     text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .linkedin-button:hover {
-    background-color: #111;
-    color: #fff;
-    transform: translateY(-1px);
+    color: #666;
 }
 
 .linkedin-button svg {
     width: 20px;
     height: 20px;
+    display: block;
 }
 
 /* Contact Form */
