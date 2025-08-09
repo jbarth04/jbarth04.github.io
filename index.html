@@ -150,43 +150,119 @@
                     const canvas = waveformCanvas;
                     const ctx = canvas.getContext('2d');
                     let time = 0;
-                    const numLines = 25;
+                    const numLines = 30; // Increased to 24-32 range as requested
                     const lineWidth = 3;
                     const spacing = canvas.width / numLines;
-                    // Real-time volume tracking from VAPI
+                    
+                    // Multi-layered animation system
                     let currentVolume = 0.1; // Start with idle level
+                    let hasVolumeData = false;
+                    let lastVolumeTime = Date.now();
                     let audioData = new Array(numLines).fill(0.1);
                     let smoothedData = new Array(numLines).fill(0.1);
+                    let isTabVisible = true;
+                    
+                    // Performance optimization: pause animation when tab not visible
+                    document.addEventListener('visibilitychange', () => {
+                        isTabVisible = !document.hidden;
+                    });
                     
                     // Listen to VAPI volume-level events for real-time audio data
                     if (vapiInstance) {
                         vapiInstance.on('volume-level', (volume) => {
                             // Volume comes as a number, normalize and use for animation
                             currentVolume = Math.max(volume / 100, 0.05); // Ensure minimum idle level
+                            hasVolumeData = true;
+                            lastVolumeTime = Date.now();
                         });
                     }
                     
+                    // Audio element detection for fallback
+                    function detectAudioPlayback() {
+                        const audioElements = document.querySelectorAll('audio, video');
+                        let isPlaying = false;
+                        let audioLevel = 0.1;
+                        
+                        audioElements.forEach(element => {
+                            if (!element.paused && !element.ended && element.readyState > 2) {
+                                isPlaying = true;
+                                // Estimate audio level based on element state
+                                audioLevel = Math.max(audioLevel, 0.3);
+                            }
+                        });
+                        
+                        return { isPlaying, audioLevel };
+                    }
+                    
                     function updateAudioData() {
-                        // Use real-time volume data from VAPI to drive all bars
-                        for (let i = 0; i < numLines; i++) {
-                            // Create variation across bars based on current volume
-                            const wavePhase = (i * 0.3) + (time * 0.02);
-                            const waveVariation = Math.sin(wavePhase) * 0.3;
-                            const randomVariation = (Math.random() - 0.5) * 0.1;
-                            
-                            // All bars respond to current volume with slight variations
-                            const targetHeight = currentVolume + (waveVariation * currentVolume) + (randomVariation * currentVolume);
-                            audioData[i] = Math.max(targetHeight, 0.05); // Minimum idle level
+                        const now = Date.now();
+                        const timeSinceLastVolume = now - lastVolumeTime;
+                        
+                        // Determine animation source priority
+                        let effectiveVolume = currentVolume;
+                        let animationMode = 'volume'; // 'volume', 'audio', 'procedural'
+                        
+                        // Check if volume data is stale (no events for 500ms)
+                        if (timeSinceLastVolume > 500) {
+                            hasVolumeData = false;
                         }
                         
-                        // Smooth the data for natural movement
+                        // Fallback to audio element detection if no volume data
+                        if (!hasVolumeData) {
+                            const audioState = detectAudioPlayback();
+                            if (audioState.isPlaying) {
+                                effectiveVolume = audioState.audioLevel;
+                                animationMode = 'audio';
+                            } else {
+                                animationMode = 'procedural';
+                            }
+                        }
+                        
+                        // Generate procedural animation base
+                        const proceduralBase = 0.05 + Math.sin(time * 0.01) * 0.03; // Subtle idle pulse
+                        
+                        // Update all bars with blended animation
                         for (let i = 0; i < numLines; i++) {
-                            smoothedData[i] = smoothedData[i] * 0.7 + audioData[i] * 0.3;
+                            let targetHeight;
+                            
+                            if (animationMode === 'volume' || animationMode === 'audio') {
+                                // Real audio-driven animation with natural variation
+                                const wavePhase = (i * 0.25) + (time * 0.015);
+                                const waveVariation = Math.sin(wavePhase) * 0.25;
+                                const randomVariation = (Math.random() - 0.5) * 0.08;
+                                
+                                // Blend real audio with procedural motion for stability
+                                const audioComponent = effectiveVolume + (waveVariation * effectiveVolume) + (randomVariation * effectiveVolume);
+                                const proceduralComponent = proceduralBase * 0.3;
+                                targetHeight = audioComponent * 0.8 + proceduralComponent * 0.2;
+                            } else {
+                                // Pure procedural animation when no audio detected
+                                const wavePhase = (i * 0.2) + (time * 0.008);
+                                const waveVariation = Math.sin(wavePhase) * 0.02;
+                                const randomVariation = (Math.random() - 0.5) * 0.01;
+                                targetHeight = proceduralBase + waveVariation + randomVariation;
+                            }
+                            
+                            audioData[i] = Math.max(targetHeight, 0.02); // Very minimal floor
+                        }
+                        
+                        // Smooth the data for fluid movement with gentle easing
+                        for (let i = 0; i < numLines; i++) {
+                            const smoothingFactor = isTabVisible ? 0.75 : 0.9; // Slower when tab hidden
+                            smoothedData[i] = smoothedData[i] * smoothingFactor + audioData[i] * (1 - smoothingFactor);
                         }
                     }
                     
                     function animate() {
                         if (!isCallActive) return;
+                        
+                        // Performance optimization: reduce frame rate when tab hidden
+                        const frameSkip = isTabVisible ? 1 : 3;
+                        if (time % frameSkip !== 0) {
+                            time++;
+                            waveformAnimation = requestAnimationFrame(animate);
+                            return;
+                        }
                         
                         updateAudioData();
                         
@@ -198,6 +274,7 @@
                         const centerY = canvas.height / 2;
                         const maxHeight = canvas.height * 0.8;
                         
+                        // Draw all bars with consistent spacing
                         for (let i = 0; i < numLines; i++) {
                             const x = (i + 0.5) * spacing;
                             const height = smoothedData[i] * maxHeight;
