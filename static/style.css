@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 180px; /* Match the height of the navigation */
-    min-height: calc(100vh - 180px);
+    padding-top: 80px; /* Reduced padding for better spacing */
+    min-height: calc(100vh - 80px);
     padding-bottom: 80px;
 }
 
@@ -645,8 +645,8 @@ p {
     }
     
     /* Adjust main content padding for mobile */
-    .main {
-        padding-top: 160px;
+.main {
+        padding-top: 60px;
     }
 }
 
