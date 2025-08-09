@@ -218,33 +218,47 @@
                             }
                         }
                         
-                        // Generate procedural animation base - keep idle pulse subtle
-                        const proceduralBase = 0.05 + Math.sin(time * 0.01) * 0.03; // Subtle idle pulse
+                        // Generate subtle idle pulse for when no speech detected
+                        const idlePulse = 0.04 + Math.sin(time * 0.008) * 0.02; // Very subtle idle pulse
                         
-                        // Update all bars with blended animation
+                        // Update all bars with speech-pattern-based animation
                         for (let i = 0; i < numLines; i++) {
                             let targetHeight;
                             
                             if (animationMode === 'volume' || animationMode === 'audio') {
-                                // Real audio-driven animation with MUCH higher contrast for visibility
-                                const wavePhase = (i * 0.25) + (time * 0.015);
-                                const waveVariation = Math.sin(wavePhase) * 0.6; // Increased from 0.25 for more dramatic variation
-                                const randomVariation = (Math.random() - 0.5) * 0.2; // Increased from 0.08 for more liveliness
+                                // Speech-pattern animation that reacts to natural rhythm
+                                // Create organic, irregular patterns that mimic speech characteristics
                                 
-                                // Amplify volume effect significantly for much more noticeable changes
-                                const amplifiedVolume = effectiveVolume * 2.5; // Multiply by 2.5 for dramatic height differences
-                                const audioComponent = amplifiedVolume + (waveVariation * amplifiedVolume) + (randomVariation * amplifiedVolume);
-                                const proceduralComponent = proceduralBase * 0.3;
-                                targetHeight = audioComponent * 0.8 + proceduralComponent * 0.2;
+                                // Base speech energy from volume with amplification
+                                const speechEnergy = effectiveVolume * 2.8; // Amplify for visibility
+                                
+                                // Add speech-like irregular patterns instead of uniform waves
+                                // Use multiple random frequencies to create organic variation
+                                const speechPattern1 = (Math.random() - 0.5) * speechEnergy * 0.4; // Primary speech variation
+                                const speechPattern2 = (Math.random() - 0.5) * speechEnergy * 0.25; // Secondary variation
+                                const speechPattern3 = (Math.random() - 0.5) * speechEnergy * 0.15; // Micro-variations
+                                
+                                // Add slight bar-to-bar correlation for more natural flow
+                                const neighborInfluence = i > 0 ? (audioData[i-1] - idlePulse) * 0.1 : 0;
+                                
+                                // Combine all speech elements for organic, human-like animation
+                                const speechComponent = speechEnergy + speechPattern1 + speechPattern2 + speechPattern3 + neighborInfluence;
+                                
+                                // Blend with minimal idle component to prevent complete silence
+                                targetHeight = speechComponent * 0.9 + idlePulse * 0.1;
+                                
+                                // Add slight momentum/decay for more natural speech rhythm
+                                if (i > 0) {
+                                    const momentum = (audioData[i-1] - idlePulse) * 0.05;
+                                    targetHeight += momentum;
+                                }
                             } else {
-                                // Pure procedural animation when no audio detected - keep subtle
-                                const wavePhase = (i * 0.2) + (time * 0.008);
-                                const waveVariation = Math.sin(wavePhase) * 0.02;
-                                const randomVariation = (Math.random() - 0.5) * 0.01;
-                                targetHeight = proceduralBase + waveVariation + randomVariation;
+                                // Pure idle state - very subtle, uniform pulse
+                                const idleVariation = (Math.random() - 0.5) * 0.005; // Minimal random variation
+                                targetHeight = idlePulse + idleVariation;
                             }
                             
-                            audioData[i] = Math.max(targetHeight, 0.02); // Very minimal floor
+                            audioData[i] = Math.max(targetHeight, 0.02); // Minimal floor for visibility
                         }
                         
                         // Smooth the data for fluid movement with gentle easing
