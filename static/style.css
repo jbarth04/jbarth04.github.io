@@ -470,12 +470,13 @@ p {
 }
 
 .linkedin-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
     margin-top: 12px;
+    margin-left: 0;
     color: #111;
     text-decoration: none;
     border-radius: 4px;
