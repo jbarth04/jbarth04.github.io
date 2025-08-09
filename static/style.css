@@ -38,7 +38,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: 160px;
 }
 
 /* Logo */
@@ -48,7 +48,7 @@ body {
 }
 
 .nav-logo {
-    height: 60px;
+    height: 140px;
     width: auto;
     display: block;
     transition: transform 0.2s ease;
@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 90px; /* Match the height of the navigation */
-    min-height: calc(100vh - 90px);
+    padding-top: 180px; /* Match the height of the navigation */
+    min-height: calc(100vh - 180px);
     padding-bottom: 80px;
 }
 
@@ -628,12 +628,12 @@ p {
     }
     
     .nav-container {
-        min-height: 100px;
+        min-height: 140px;
         padding: 0 20px;
     }
     
     .nav-logo {
-        height: 68px;
+        height: 100px;
     }
     
     .nav-links {
@@ -646,7 +646,7 @@ p {
     
     /* Adjust main content padding for mobile */
     .main {
-        padding-top: 100px;
+        padding-top: 160px;
     }
 }
 
