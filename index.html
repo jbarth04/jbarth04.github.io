@@ -154,9 +154,12 @@
                     const lineWidth = 3;
                     const spacing = canvas.width / numLines;
                     
-                    // Continuous speaker wave animation system
-                    let audioData = new Array(numLines).fill(0.1);
-                    let smoothedData = new Array(numLines).fill(0.1);
+                    // Speech-responsive animation system with enhanced smoothing
+                    let currentVolume = 0.05; // Start with idle level
+                    let hasVolumeData = false;
+                    let lastVolumeTime = Date.now();
+                    let audioData = new Array(numLines).fill(0.05);
+                    let smoothedData = new Array(numLines).fill(0.05);
                     let isTabVisible = true;
                     
                     // Performance optimization: pause animation when tab not visible
@@ -164,41 +167,102 @@
                         isTabVisible = !document.hidden;
                     });
                     
-                    function updateWaveData() {
-                        // Create continuous rolling wave effect with multiple wave layers
-                        // This creates an equalizer-like animation that's always alive and energetic
+                    // Listen to VAPI volume-level events for real-time audio data
+                    if (vapiInstance) {
+                        vapiInstance.on('volume-level', (volume) => {
+                            // Volume comes as a number, normalize and use for animation
+                            currentVolume = Math.max(volume / 100, 0.05); // Ensure minimum idle level
+                            hasVolumeData = true;
+                            lastVolumeTime = Date.now();
+                        });
+                    }
+                    
+                    // Audio element detection for fallback
+                    function detectAudioPlayback() {
+                        const audioElements = document.querySelectorAll('audio, video');
+                        let isPlaying = false;
+                        let audioLevel = 0.05;
                         
-                        for (let i = 0; i < numLines; i++) {
-                            // Primary wave - creates the main rolling motion across bars
-                            const primaryWave = Math.sin((i * 0.3) + (time * 0.02)) * 0.4;
-                            
-                            // Secondary wave - adds complexity and prevents uniformity
-                            const secondaryWave = Math.sin((i * 0.15) + (time * 0.035)) * 0.25;
-                            
-                            // Tertiary wave - creates micro-variations for organic feel
-                            const tertiaryWave = Math.sin((i * 0.8) + (time * 0.015)) * 0.15;
-                            
-                            // Base energy level - keeps bars always visible and energetic
-                            const baseEnergy = 0.3 + Math.sin(time * 0.01) * 0.1;
-                            
-                            // Combine waves to create rolling peaks and valleys
-                            const waveHeight = baseEnergy + primaryWave + secondaryWave + tertiaryWave;
-                            
-                            // Add slight randomness for organic, non-mechanical feel
-                            const organicVariation = (Math.random() - 0.5) * 0.08;
-                            
-                            // Create neighbor influence for smoother flow between bars
-                            const neighborInfluence = i > 0 ? (audioData[i-1] - baseEnergy) * 0.15 : 0;
-                            
-                            // Final height calculation with all components
-                            const targetHeight = Math.max(waveHeight + organicVariation + neighborInfluence, 0.05);
-                            
-                            audioData[i] = targetHeight;
+                        audioElements.forEach(element => {
+                            if (!element.paused && !element.ended && element.readyState > 2) {
+                                isPlaying = true;
+                                // Estimate audio level based on element state
+                                audioLevel = Math.max(audioLevel, 0.2);
+                            }
+                        });
+                        
+                        return { isPlaying, audioLevel };
+                    }
+                    
+                    function updateWaveData() {
+                        const now = Date.now();
+                        const timeSinceLastVolume = now - lastVolumeTime;
+                        
+                        // Determine animation source priority
+                        let effectiveVolume = currentVolume;
+                        let animationMode = 'volume'; // 'volume', 'audio', 'idle'
+                        
+                        // Check if volume data is stale (no events for 500ms)
+                        if (timeSinceLastVolume > 500) {
+                            hasVolumeData = false;
                         }
                         
-                        // Smooth the data for fluid, continuous movement
+                        // Fallback to audio element detection if no volume data
+                        if (!hasVolumeData) {
+                            const audioState = detectAudioPlayback();
+                            if (audioState.isPlaying) {
+                                effectiveVolume = audioState.audioLevel;
+                                animationMode = 'audio';
+                            } else {
+                                animationMode = 'idle';
+                            }
+                        }
+                        
+                        // Generate subtle idle pulse for when no speech detected
+                        const idlePulse = 0.05 + Math.sin(time * 0.01) * 0.02; // Very subtle idle pulse
+                        
+                        // Update all bars with speech-responsive animation
                         for (let i = 0; i < numLines; i++) {
-                            const smoothingFactor = isTabVisible ? 0.8 : 0.9; // Slightly slower when tab hidden
+                            let targetHeight;
+                            
+                            if (animationMode === 'volume' || animationMode === 'audio') {
+                                // Speech-responsive animation with noticeable height variation
+                                
+                                // Base speech energy from volume with good amplification for visibility
+                                const speechEnergy = effectiveVolume * 3.5; // Strong amplification for clear response
+                                
+                                // Add organic variation that responds to speech patterns
+                                const speechVariation1 = (Math.random() - 0.5) * speechEnergy * 0.4; // Primary variation
+                                const speechVariation2 = (Math.random() - 0.5) * speechEnergy * 0.25; // Secondary variation
+                                const speechVariation3 = (Math.random() - 0.5) * speechEnergy * 0.15; // Micro-variations
+                                
+                                // Add slight bar-to-bar correlation for natural flow
+                                const neighborInfluence = i > 0 ? (audioData[i-1] - idlePulse) * 0.12 : 0;
+                                
+                                // Combine speech elements for responsive animation
+                                const speechComponent = speechEnergy + speechVariation1 + speechVariation2 + speechVariation3 + neighborInfluence;
+                                
+                                // Blend with minimal idle component
+                                targetHeight = speechComponent * 0.85 + idlePulse * 0.15;
+                                
+                                // Add momentum for natural speech rhythm
+                                if (i > 0) {
+                                    const momentum = (audioData[i-1] - idlePulse) * 0.08;
+                                    targetHeight += momentum;
+                                }
+                            } else {
+                                // Idle state - subtle, uniform pulse
+                                const idleVariation = (Math.random() - 0.5) * 0.01; // Minimal random variation
+                                targetHeight = idlePulse + idleVariation;
+                            }
+                            
+                            audioData[i] = Math.max(targetHeight, 0.03); // Minimal floor for visibility
+                        }
+                        
+                        // Enhanced smoothing for fluid movement without jitteriness
+                        for (let i = 0; i < numLines; i++) {
+                            // Stronger smoothing to eliminate jitter while maintaining responsiveness
+                            const smoothingFactor = isTabVisible ? 0.85 : 0.92; // Enhanced smoothing
                             smoothedData[i] = smoothedData[i] * smoothingFactor + audioData[i] * (1 - smoothingFactor);
                         }
                     }
