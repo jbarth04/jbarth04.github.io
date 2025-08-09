@@ -6,6 +6,10 @@ window.SITE_CONFIG = {
     // Update this to point to your backend API server
     API_BASE_URL: 'https://api.josieastrid.com',
     
+    // Vapi Voice Agent Configuration
+    VAPI_PUBLIC_KEY: '0cf8ba01-833e-42bc-8bb8-83cf4d3035b8',
+    VAPI_ASSISTANT_ID: 'eea2ce9f-3124-462f-9a5c-3b6a0a16672b',
+    
     // Alternative configurations for different environments:
     // Development: 'http://localhost:3000'
     // Staging: 'https://staging-api.josieastrid.com'

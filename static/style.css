@@ -453,6 +453,57 @@ p {
     display: block;
 }
 
+/* Voice Button */
+.voice-btn {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1.5rem;
+    display: inline-block;
+    font-family: inherit;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.voice-btn:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.voice-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.voice-btn[data-state="connecting"] {
+    background: #666;
+}
+
+.voice-btn[data-state="active"] {
+    background: #dc3545;
+}
+
+.voice-btn[data-state="active"]:hover {
+    background: #c82333;
+}
+
+.voice-btn[data-state="error"] {
+    background: #dc3545;
+}
+
+.voice-btn[data-state="error"]:hover {
+    background: #c82333;
+}
+
 /* Contact Form */
 .contact-form-container {
     margin-top: 2rem;
@@ -645,5 +696,17 @@ p {
     
     .hero p {
         font-size: 18px;
+    }
+    
+    .voice-btn {
+        width: 100%;
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .home-body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: center;
     }
 }
