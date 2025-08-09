@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Josie Astrid Consulting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-brand">
+                <img src="{{ url_for('static', filename='JAC_Logo.png') }}" alt="Josie Astrid Consulting" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('about') }}" class="active">About</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-body">
+                    <div class="about-text">
+                        <h1>About</h1>
+                        <p>With a background in strategic positioning and narrative development, I help businesses craft compelling stories that resonate with their target audiences. My approach combines analytical rigor with creative thinking to develop clear, differentiated messaging that drives engagement and growth. I work closely with leadership teams to articulate their vision, align stakeholders, and create meaningful connections with customers through authentic, purpose-driven communication.</p>
+                    </div>
+                    
+                    <div class="about-image">
+                        <img src="{{ url_for('static', filename='jb_headshot.jpg') }}" alt="Josie Astrid" class="headshot">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
