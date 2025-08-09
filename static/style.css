@@ -368,13 +368,13 @@ p {
 .home-body {
     max-width: 800px;
     margin: 0 auto;
-    padding: 1rem 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 50vh;
+    min-height: 45vh;
 }
 
 .home-text {
@@ -755,7 +755,12 @@ p {
     
     /* Adjust main content padding for mobile */
     .main {
-        padding-top: 10px;
+        padding-top: 5px;
+    }
+    
+    .home-body {
+        padding: 0.25rem 1rem;
+        min-height: 40vh;
     }
 }
 
