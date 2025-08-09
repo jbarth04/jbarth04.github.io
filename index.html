@@ -35,6 +35,10 @@
                         <button id="vapi-voice-btn" class="voice-btn">
                             <span class="voice-btn-text">TALK TO MY AI TWIN</span>
                         </button>
+                        <canvas id="waveform-canvas" class="waveform-canvas" width="300" height="60" style="display: none;"></canvas>
+                        <div id="call-status" class="call-status" style="display: none;">
+                            <span class="status-text">Call in progress...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,16 +97,91 @@
                 
                 // Add click handler to our custom button
                 const customBtn = document.getElementById('vapi-voice-btn');
+                const waveformCanvas = document.getElementById('waveform-canvas');
+                const callStatus = document.getElementById('call-status');
+                let isCallActive = false;
+                let waveformAnimation = null;
+                
                 if (customBtn) {
                     customBtn.addEventListener('click', function() {
                         if (vapiInstance) {
-                            if (vapiInstance.start) {
-                                vapiInstance.start(assistant);
-                            } else if (vapiInstance.call) {
-                                vapiInstance.call({ assistant: assistant });
+                            if (isCallActive) {
+                                if (vapiInstance.stop) {
+                                    vapiInstance.stop();
+                                }
+                            } else {
+                                if (vapiInstance.start) {
+                                    vapiInstance.start(assistant);
+                                } else if (vapiInstance.call) {
+                                    vapiInstance.call({ assistant: assistant });
+                                }
                             }
                         }
                     });
+                }
+                
+                if (vapiInstance) {
+                    vapiInstance.on('call-start', () => {
+                        console.log('Call started');
+                        isCallActive = true;
+                        customBtn.setAttribute('data-state', 'active');
+                        waveformCanvas.style.display = 'block';
+                        callStatus.style.display = 'block';
+                        startWaveformAnimation();
+                    });
+                    
+                    vapiInstance.on('call-end', () => {
+                        console.log('Call ended');
+                        isCallActive = false;
+                        customBtn.setAttribute('data-state', '');
+                        waveformCanvas.style.display = 'none';
+                        callStatus.style.display = 'none';
+                        stopWaveformAnimation();
+                    });
+                    
+                    vapiInstance.on('message', (message) => {
+                        if (message.type === 'transcript') {
+                            console.log(`${message.role}: ${message.transcript}`);
+                        }
+                    });
+                }
+                
+                function startWaveformAnimation() {
+                    const canvas = waveformCanvas;
+                    const ctx = canvas.getContext('2d');
+                    const bars = 20;
+                    const barWidth = canvas.width / bars;
+                    
+                    function animate() {
+                        if (!isCallActive) return;
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = '#dc3545';
+                        
+                        for (let i = 0; i < bars; i++) {
+                            const height = Math.random() * canvas.height * 0.8 + canvas.height * 0.1;
+                            const x = i * barWidth + barWidth * 0.1;
+                            const y = (canvas.height - height) / 2;
+                            const width = barWidth * 0.8;
+                            
+                            ctx.fillRect(x, y, width, height);
+                        }
+                        
+                        waveformAnimation = requestAnimationFrame(animate);
+                    }
+                    
+                    animate();
+                }
+                
+                function stopWaveformAnimation() {
+                    if (waveformAnimation) {
+                        cancelAnimationFrame(waveformAnimation);
+                        waveformAnimation = null;
+                    }
+                    
+                    const canvas = waveformCanvas;
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                 }
             };
         })(document, "script");

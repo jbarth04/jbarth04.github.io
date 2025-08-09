@@ -588,6 +588,36 @@ p {
     border-color: #c82333;
 }
 
+/* Waveform Visualization */
+.waveform-canvas {
+    margin: 1rem auto 0;
+    display: block;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.call-status {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.voice-btn[data-state="active"] .voice-btn-text::before {
+    content: "HANG UP";
+}
+
+.voice-btn[data-state="active"] .voice-btn-text {
+    font-size: 0;
+}
+
+.voice-btn[data-state="active"] .voice-btn-text::before {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
 /* Contact Form */
 .contact-form-container {
     margin-top: 2rem;
