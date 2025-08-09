@@ -229,14 +229,14 @@
                                 // Speech-pattern animation that reacts to natural rhythm
                                 // Create organic, irregular patterns that mimic speech characteristics
                                 
-                                // Base speech energy from volume with amplification
-                                const speechEnergy = effectiveVolume * 2.8; // Amplify for visibility
+                                // Base speech energy from volume with much higher amplification for dramatic peaks
+                                const speechEnergy = effectiveVolume * 4.5; // Significantly increased from 2.8 for higher peaks
                                 
-                                // Add speech-like irregular patterns instead of uniform waves
-                                // Use multiple random frequencies to create organic variation
-                                const speechPattern1 = (Math.random() - 0.5) * speechEnergy * 0.4; // Primary speech variation
-                                const speechPattern2 = (Math.random() - 0.5) * speechEnergy * 0.25; // Secondary variation
-                                const speechPattern3 = (Math.random() - 0.5) * speechEnergy * 0.15; // Micro-variations
+                                // Add speech-like irregular patterns with increased variation for more dynamic range
+                                // Use multiple random frequencies to create organic variation with higher peaks
+                                const speechPattern1 = (Math.random() - 0.5) * speechEnergy * 0.6; // Increased from 0.4 for more dramatic variation
+                                const speechPattern2 = (Math.random() - 0.5) * speechEnergy * 0.4; // Increased from 0.25 for secondary peaks
+                                const speechPattern3 = (Math.random() - 0.5) * speechEnergy * 0.25; // Increased from 0.15 for micro-variations
                                 
                                 // Add slight bar-to-bar correlation for more natural flow
                                 const neighborInfluence = i > 0 ? (audioData[i-1] - idlePulse) * 0.1 : 0;
@@ -287,7 +287,7 @@
                         ctx.lineCap = 'round';
                         
                         const centerY = canvas.height / 2;
-                        const maxHeight = canvas.height * 0.9; // Increased from 0.8 to allow taller bars for better contrast
+                        const maxHeight = canvas.height * 0.95; // Increased from 0.9 to allow even taller bars for dramatic peaks
                         
                         // Draw all bars with consistent spacing
                         for (let i = 0; i < numLines; i++) {
