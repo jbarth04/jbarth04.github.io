@@ -453,32 +453,57 @@ p {
     display: block;
 }
 
-/* Voice Button */
+/* Voice Button - Vapi Style */
 .voice-btn {
-    background: #111;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 8px;
+    background: #f5f5f5;
+    color: #111;
+    border: 3px solid #111;
+    padding: 1.2rem 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 1.5rem;
-    display: inline-block;
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     font-family: inherit;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
 }
 
 .voice-btn:hover {
-    background: #333;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #111;
+    color: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.voice-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.voice-btn-icon {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.voice-btn-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 
 .voice-btn:disabled {
     background: #ccc;
+    color: #666;
+    border-color: #ccc;
     cursor: not-allowed;
     transform: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -486,22 +511,42 @@ p {
 
 .voice-btn[data-state="connecting"] {
     background: #666;
+    border-color: #666;
+    color: white;
+}
+
+.voice-btn[data-state="connecting"] .voice-btn-text::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
 }
 
 .voice-btn[data-state="active"] {
     background: #dc3545;
+    border-color: #dc3545;
+    color: white;
 }
 
 .voice-btn[data-state="active"]:hover {
     background: #c82333;
+    border-color: #c82333;
 }
 
 .voice-btn[data-state="error"] {
     background: #dc3545;
+    border-color: #dc3545;
+    color: white;
 }
 
 .voice-btn[data-state="error"]:hover {
     background: #c82333;
+    border-color: #c82333;
 }
 
 /* Contact Form */
