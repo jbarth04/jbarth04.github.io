@@ -822,7 +822,8 @@ p {
     }
     
     .voice-btn {
-        width: 100%;
+        width: auto;
+        max-width: 280px;
         padding: 1.5rem 2rem;
         font-size: 1.1rem;
     }
