@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 10px; /* Further reduced padding for better visual balance between navbar and headline */
-    min-height: calc(100vh - 10px);
+    padding-top: 0px; /* Minimal padding to match Ask page spacing alignment */
+    min-height: calc(100vh - 0px);
     padding-bottom: 80px;
 }
 
