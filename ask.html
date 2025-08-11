@@ -61,10 +61,11 @@
         </ul>
     </div>
 
+    <script src="./config.js"></script>
     <script>
         var vapiInstance = null;
-        const assistant = window.CONFIG?.VAPI_ASSISTANT_ID;
-        const apiKey = window.CONFIG?.VAPI_API_KEY;
+        const assistant = window.SITE_CONFIG?.VAPI_ASSISTANT_ID;
+        const apiKey = window.SITE_CONFIG?.VAPI_PUBLIC_KEY;
 
         (function (d, t) {
             var g = document.createElement(t),
@@ -325,7 +326,6 @@
             };
         })(document, "script");
     </script>
-    <script src="./config.js"></script>
     <script src="./static/app.js"></script>
 </body>
 </html>
