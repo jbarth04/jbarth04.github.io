@@ -194,8 +194,8 @@ h1 {
 
 /* Main Content */
 .main {
-    padding-top: 0px; /* Minimal padding to match Ask page spacing alignment */
-    min-height: calc(100vh - 0px);
+    padding-top: 20px; /* Restored original padding for proper spacing between navbar and content */
+    min-height: calc(100vh - 20px);
     padding-bottom: 80px;
 }
 
@@ -305,6 +305,7 @@ p {
     
     .about-content {
         gap: 2.5rem;
+        margin-top: -15px;
     }
     
     .about-image img {
@@ -393,6 +394,7 @@ p {
 .contact-content {
     max-width: 900px;
     margin: 0 auto;
+    margin-top: -15px;
     padding: 0 1rem;
 }
 
