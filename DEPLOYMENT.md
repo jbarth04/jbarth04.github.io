@@ -1,4 +1,4 @@
-# Deployment Guide for Josie Astrid Consulting Static Site
+# Deployment Guide for Astrid Consulting Static Site
 
 ## Overview
 
