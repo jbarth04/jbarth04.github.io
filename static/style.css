@@ -1,4 +1,4 @@
-/* Ultra-minimal CSS for Josie Astrid Consulting */
+/* Ultra-minimal CSS for Astrid Consulting */
 
 * {
     margin: 0;
@@ -392,10 +392,10 @@ p {
 
 /* Contact Page */
 .contact-content {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     margin-top: -15px;
-    padding: 0 1rem;
+    padding: 0 24px;
 }
 
 .contact-body {

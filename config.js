@@ -1,4 +1,4 @@
-// API Configuration for Josie Astrid Consulting Static Site
+// API Configuration for Astrid Consulting Static Site
 // This file allows you to configure the API endpoints without modifying the main application code
 
 window.SITE_CONFIG = {
