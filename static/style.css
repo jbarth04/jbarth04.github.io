@@ -531,12 +531,15 @@ p {
 .main-paragraph ul {
     text-align: center;
     list-style: none;
+    list-style-type: none;
     margin: 0.5rem 0;
     padding-left: 0;
 }
 
 .main-paragraph li {
     margin-bottom: 0.25rem;
+    list-style: none;
+    list-style-type: none;
 }
 
 .subhead {
