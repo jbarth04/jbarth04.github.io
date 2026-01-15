@@ -528,6 +528,17 @@ p {
     text-align: center;
 }
 
+.main-paragraph ul {
+    text-align: left;
+    display: inline-block;
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.main-paragraph li {
+    margin-bottom: 0.25rem;
+}
+
 .subhead {
     font-size: 1rem;
     line-height: 1.5;
