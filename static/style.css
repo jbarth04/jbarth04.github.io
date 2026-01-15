@@ -835,5 +835,8 @@ p {
         gap: 1rem;
         text-align: center;
     }
-}
+    
+    .contact-content {
+        margin-top: 0;
+    }
 }
