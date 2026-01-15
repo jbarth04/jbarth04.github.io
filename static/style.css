@@ -399,9 +399,10 @@ p {
 }
 
 .contact-body {
-    max-width: 900px;
+    width: 900px;
+    max-width: calc(100% - 2rem);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
