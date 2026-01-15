@@ -401,7 +401,7 @@ p {
 .contact-body {
     max-width: 900px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
