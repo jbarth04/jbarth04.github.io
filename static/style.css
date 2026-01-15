@@ -529,10 +529,10 @@ p {
 }
 
 .main-paragraph ul {
-    text-align: left;
-    display: inline-block;
+    text-align: center;
+    list-style: none;
     margin: 0.5rem 0;
-    padding-left: 1.5rem;
+    padding-left: 0;
 }
 
 .main-paragraph li {
